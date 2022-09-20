@@ -290,6 +290,16 @@ async def del_todo(id, event, bot):
                 await bot.send(event, 'IndexError!!!你个傻逼!')
                 return
 
+help_msg = '''-todo 查看华华的todolist
+-todo add {'type':'short','name':'%s'}
+-todo add {'type':'long','name':'%s','parts':int}
+-todo done num (结束短期任务)
+-todo done {'id':'0x??','part':int,'pname':'%s'} (推进长期任务进度)
+-todo del dec_num (删除短期任务)
+-todo del hex_num (删除长期任务)
+-todo help (如你所见)
+'''
+
 async def todo(event, bot):
     msg = str(event.message)
     if msg[:5] != '-todo':
@@ -313,6 +323,9 @@ async def todo(event, bot):
         await done_todo(msg[5:], event, bot)
     elif msg[:3] == 'del':
         await del_todo(msg[4:], event, bot)
+    elif msg == 'help':
+        print('[+] 触发todo_help')
+        await bot.send(event, help_msg)
     else:
         await bot.send(event, '指令错了喵')
     return True
