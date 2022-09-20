@@ -1,0 +1,6 @@
+__pycache__
+data/configs/SU.json
+data/configs/group_enabled.json
+data/configs/groups
+data/todo
+plugins/__pycache__
