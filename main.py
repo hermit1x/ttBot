@@ -46,6 +46,8 @@ async def handle_message(event: Event):
         return
     if await todo(event, bot):
         return
+    if await essence(event, bot):
+        return
     if await auto_buy(event, bot):
         return
     if await eavesdrop(event, bot):

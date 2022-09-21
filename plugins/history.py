@@ -125,7 +125,6 @@ async def eavesdrop(event, bot):
     msg = '偷听 ' + sender_name + ' (' + str(sender_id) + ') 撤回的消息：\n' + msg
     await bot.send(event, msg)
     return True
-    
 
 # <Event, {
 #     'post_type': 'notice', 
@@ -136,4 +135,81 @@ async def eavesdrop(event, bot):
 #     'operator_id': 1242291955, 
 #     'message_id': 1189717667, 
 #     'group_id': 636068836
+#     }>
+
+async def essence(event, bot):
+    if event.post_type != 'message' or event.message_type != 'group':
+        return False
+    if not id_func(event, 'essence'):
+        return False
+
+    msg = str(event.message)
+    gid = event.group_id
+    
+
+    if len(msg) < 13 or str(msg[:13]) != '[CQ:reply,id=':
+        return False
+    if msg.find(']') == -1:
+        return False
+    mid = int(msg[13:msg.find(']')])
+
+    if msg.find('糖糖设精') != -1 or msg.find('糖糖射精') != -1:
+        await bot.set_essence_msg(message_id = mid)
+        print('[+] 精华消息，群', gid)
+        return True
+    
+    if msg.find('糖糖别设') != -1 or msg.find('糖糖别射') != -1:
+        await bot.delete_essence_msg(message_id = mid)
+        print('[+] 移出精华，群', gid)
+        return True
+    
+    return False
+    
+
+    
+
+# <Event, {
+#     'post_type': 'message', 
+#     'message_type': 'group', 
+#     'time': 1663732296, 
+#     'self_id': 3107347416, 
+#     'sub_type': 'normal', 
+#     'message': 'text1', 
+#     'raw_message': 'text1', 
+#     'sender': {'age': 0, 'area': '', 'card': '', 'level': '', 'nickname': '华华小公主', 'role': 'owner', 'sex': 'unknown', 'title': '', 'user_id': 1242291955}, 
+#     'message_id': 1997544749, 
+#     'anonymous': None, 
+#     'font': 0, 
+#     'group_id': 636068836, 
+#     'message_seq': 999, 
+#     'user_id': 1242291955
+#     }>
+
+# <Event, {
+#     'post_type': 'message', 
+#     'message_type': 'group', 
+#     'time': 1663732303, 
+#     'self_id': 3107347416, 
+#     'sub_type': 'normal', 
+#     'anonymous': None, 
+#     'message_seq': 1000, 
+#     'raw_message': '[CQ:reply,id=1997544749][CQ:at,qq=1242291955] text2', 
+#     'message_id': -1428931744, 
+#     'font': 0, 
+#     'group_id': 636068836, 
+#     'message': '[CQ:reply,id=1997544749][CQ:at,qq=1242291955] text2', 
+#     'message': '[CQ:reply,id=1997544749][CQ:at,qq=1242291955] [CQ:at,qq=1242291955] text3'
+#     'sender': {
+#         'age': 0, 
+#         'area': '', 
+#         'card': '', 
+#         'level': '', 
+#         'nickname': 
+#         '华华小公主', 
+#         'role': 'owner', 
+#         'sex': 'unknown', 
+#         'title': '', 
+#         'user_id': 1242291955
+#     }, 
+#     'user_id': 1242291955
 #     }>
