@@ -4,3 +4,4 @@ data/configs/group_enabled.json
 data/configs/groups
 data/todo
 plugins/__pycache__
+data/configs/black_list.json
