@@ -21,4 +21,63 @@ async def coin(event, bot):
     else:
         await bot.send(event, '是反面！')
     return True
-        
+
+async def dice(event, bot):
+    msg = event.message
+    if msg.find('d') == -1 and msg.find('D') == -1:
+        return False
+    roll_seq0 = msg.split('+')
+    roll_seq1 = []
+    for i in roll_seq0:
+        j = i.strip()
+        if j.find('d') == -1 and msg.find('D') == -1 and not j.isdigit():
+            return False
+        elif j.find('d') != -1 and len(j.split('d')) != 2:
+            return False
+        elif j.find('D') != -1 and len(j.split('d')) != 2:
+            return False
+
+    if not id_func(event, 'dice'):
+        return True
+    
+    print('[+] 触发dice')
+    for i in roll_seq0:
+        j = i.strip()
+        if j.find('d') == -1 and msg.find('D') == -1:
+            roll_seq1.append(int(j))
+        elif j.find('d') != -1:
+            k = j.split('d')
+            roll_seq1.append((
+                int(k[0].strip()),
+                int(k[1].strip())
+            ))
+        elif j.find('D') != -1:
+            k = j.split('D')
+            roll_seq1.append((
+                int(k[0].strip()),
+                int(k[1].strip())
+            ))
+    
+    cnt = 0
+    ret = ""
+    for i in roll_seq1:
+        if type(i) == int:
+            ret = ret + ' + ' + str(i)
+            cnt = cnt + i
+        else:
+            ret = ret + ' + '
+            if i[0] > 1:
+                ret = ret + '('
+            rand = random.randint(1, i[1])
+            cnt = cnt + rand
+            ret = ret + str(rand) # 第一个
+            for j in range(1, i[0]):
+                rand = random.randint(1, i[1])
+                cnt = cnt + rand
+                ret = ret + '+' + str(rand)
+            if i[0] > 1:
+                ret = ret + ')'
+    ret = ret[3:]
+    if len(roll_seq1) > 1:
+        ret = ret + ' = '+ str(cnt)
+    await bot.send(event, f"[CQ:reply,id={event['message_id']}]{ret}")

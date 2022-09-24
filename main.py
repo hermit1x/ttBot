@@ -8,7 +8,7 @@ from plugins.test import test
 from plugins.poke import poke
 from plugins.help import help
 from plugins.setu import setu
-from plugins.coin import coin
+from plugins.coin import coin, dice
 from plugins.todo import todo
 from plugins.answer import answer
 from plugins.lottery import auto_buy
@@ -44,6 +44,8 @@ async def handle_message(event: Event):
     if await coin(event, bot):
         return
     if await todo(event, bot):
+        return
+    if await dice(event, bot):
         return
     if await essence(event, bot):
         return
