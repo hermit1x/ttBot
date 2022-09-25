@@ -32,10 +32,20 @@ async def dice(event, bot):
         j = i.strip()
         if j.find('d') == -1 and msg.find('D') == -1 and not j.isdigit():
             return False
-        elif j.find('d') != -1 and len(j.split('d')) != 2:
-            return False
-        elif j.find('D') != -1 and len(j.split('d')) != 2:
-            return False
+        elif j.find('d') != -1:
+            if len(j.split('d')) != 2:
+                return False
+            if j.split('d')[0].isdigit() == False:
+                return False
+            if j.split('d')[1].isdigit() == False:
+                return False
+        elif j.find('D') != -1:
+            if len(j.split('D')) != 2:
+                return False
+            if j.split('D')[0].isdigit() == False:
+                return False
+            if j.split('D')[1].isdigit() == False:
+                return False
 
     if not id_func(event, 'dice'):
         return True
