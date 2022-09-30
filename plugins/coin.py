@@ -51,6 +51,8 @@ async def dice(event, bot):
         return True
     
     print('[+] 触发dice')
+    if len(roll_seq0) > 10000:
+        return True
     for i in roll_seq0:
         j = i.strip()
         if j.find('d') == -1 and msg.find('D') == -1:
@@ -81,6 +83,8 @@ async def dice(event, bot):
             rand = random.randint(1, i[1])
             cnt = cnt + rand
             ret = ret + str(rand) # 第一个
+            if i[0] > 10000:
+                return True
             for j in range(1, i[0]):
                 rand = random.randint(1, i[1])
                 cnt = cnt + rand
@@ -88,6 +92,6 @@ async def dice(event, bot):
             if i[0] > 1:
                 ret = ret + ')'
     ret = ret[3:]
-    if len(roll_seq1) > 1:
+    if len(roll_seq1) > 1 or roll_seq1[0][0] > 1:
         ret = ret + ' = '+ str(cnt)
     await bot.send(event, f"[CQ:reply,id={event['message_id']}]{ret}")
