@@ -10,6 +10,7 @@ from plugins.help import help
 from plugins.setu import setu
 from plugins.coin import coin, dice
 from plugins.todo import todo
+from plugins.room import room
 from plugins.answer import answer
 from plugins.thanks import thanks
 from plugins.lottery import auto_buy
@@ -47,6 +48,8 @@ async def handle_message(event: Event):
     if await todo(event, bot):
         return
     if await dice(event, bot):
+        return
+    if await room(event, bot):
         return
     if await thanks(event, bot):
         return
