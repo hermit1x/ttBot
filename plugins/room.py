@@ -74,11 +74,19 @@ def GetSingleRoom(buildData, floor, roomName, floor2 = 0) -> dict:
             return i
     raise RoomNotFoundError
 
+def GetWholeBuild(buildData) -> list:
+    result = []
+    for floor in buildData:
+        for classRoom in floor['children']:
+            result.append(HandleSingleRoom(classRoom))
+    return result.copy()
+
+
 def msgFormat(msg) -> list:
     '''
     [{
         build: 东下院,
-        type: 'single/floor/search',
+        type: 'single/floor/build',
         floor: 1/2/3..,
         name: 东下院405,
         floor2: 0
@@ -101,10 +109,22 @@ def msgFormat(msg) -> list:
             buildName = prevBuild
         else:
             continue
+        
+        if query == buildName:
+            if buildName in ['东上', '东中', '东下']:
+                buildName = buildName + '院'
+            result.append({
+                'build': buildName,
+                'type': 'build',
+                'floor': 0,
+                'name': '',
+                'floor2': 0
+            })
+            continue
 
         if buildName in ['东上', '东中', '东下']:
             buildName = buildName + '院'
-        
+
         if buildName == '东中院':
             tmp = query.split('-')
             floor = int(tmp[0][-1])
@@ -289,6 +309,8 @@ def _room(msg):
                 roomsData.append(GetSingleRoom(buildData, i['floor'], i['name'], i['floor2']))
             if i['type'] == 'floor':
                 roomsData = roomsData + GetWholeFloor(buildData, i['floor'], i['floor2'])
+            if i['type'] == 'build':
+                roomsData = roomsData + GetWholeBuild(buildData)
         except RoomNotFoundError:
             pass
     if len(roomsData) == 0:
