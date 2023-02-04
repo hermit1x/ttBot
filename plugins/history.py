@@ -38,7 +38,6 @@ def record_message(event):
     })
     message_cache[gid] = [x for x in message_cache[gid] if time_now-x['time'] < 130]
 
-
 def monitor(event):
     # peep = 偷看
     # eavesdrop = 偷听
@@ -46,6 +45,8 @@ def monitor(event):
         record_flash(event)
     if id_func(event, 'eavesdrop'):
         record_message(event)
+
+    # 查成分部分的记录
 
 
 async def peep(event, bot):

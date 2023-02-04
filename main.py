@@ -15,6 +15,7 @@ from plugins.openai import openai
 from plugins.answer import answer
 from plugins.thanks import thanks
 from plugins.lottery import auto_buy
+from plugins.wordcloud import wordcloud, record_for_wordcloud
 from plugins.history import monitor, peep, eavesdrop, essence, retract_monitor
 from plugins.identify import message_pre_handle, change_config, SU
 from plugins.friend_add import friend_add
@@ -31,15 +32,15 @@ async def handle_seq(event, bot, funcs):
 
 @bot.on_message # 所有的message
 async def handle_message(event: Event):
-    
     permission = message_pre_handle(event)
     if permission == 'NO':
         if event.message_type == 'group' and event.user_id in SU:
             await change_config(event, bot)
         return
-    wait()
-    # 阻塞式编程，一个一个来
     monitor(event)
+    record_for_wordcloud(event)
+    wait()
+    # 一个一个来
     await handle_seq(event, bot,
         [
             change_config,
@@ -55,8 +56,9 @@ async def handle_message(event: Event):
             essence,
             auto_buy,
             eavesdrop,
+            wordcloud,
             openai,
-            answer
+            answer,
         ]
     ) # 糖糖问答是在别的‘糖糖xxx’都没有响应的时候才响应
 
