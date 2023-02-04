@@ -3,5 +3,7 @@ data/configs/SU.json
 data/configs/group_enabled.json
 data/configs/groups
 data/todo
+data/room/tmp.png
 plugins/__pycache__
+plugins/openai.py
 data/configs/black_list.json

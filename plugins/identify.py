@@ -228,7 +228,9 @@ def id_func(event, func):
     if event.message_type == 'group':
         gid = str(event.group_id)
         if gid in config:
-            return config[gid]['func'][func]
+            if func in config[gid]['func']:
+                return config[gid]['func'][func]
+            return False
         else:
             return False
 
