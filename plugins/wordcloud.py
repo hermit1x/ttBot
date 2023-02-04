@@ -19,9 +19,16 @@ import os
 def record_for_wordcloud(event):
     if event.message_type == 'group':
         gid = event.group_id
-        msg = str(event.message).strip()
-        with open(f'data/wordcloud/rec_{gid}_{event.user_id}.txt', 'a') as f:
-            f.write(msg + '。')
+        rmsg = str(event.message).strip()
+        msgs = rmsg.split('[')
+        for i in msgs:
+            if i.startswith('CQ:'):
+                j = i.split(']')[1]
+            else:
+                j = i
+            if j != '':
+                with open(f'data/wordcloud/rec_{gid}_{event.user_id}.txt', 'a') as f:
+                    f.write(j + '。')
 
 def GenerateFilename():
     return r''.join(random.sample(string.ascii_letters + string.digits, 16))
