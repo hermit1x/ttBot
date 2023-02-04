@@ -48,7 +48,7 @@ async def wordcloud(event, bot):
         return True
 
     if not (content.startswith("[CQ:at,qq=") and content.endswith("]")):
-        await bot.send(event, '错了哦')
+        # await bot.send(event, '错了哦')
         return True
 
     # 进入主程序
