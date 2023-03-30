@@ -110,7 +110,7 @@ def msgFormat(msg) -> list:
         else:
             continue
         
-        if query == buildName:
+        if query in ['东上', '东中', '东下', '上院', '中院', '下院', '东上院', '东中院', '东下院']:
             if buildName in ['东上', '东中', '东下']:
                 buildName = buildName + '院'
             result.append({
@@ -138,7 +138,7 @@ def msgFormat(msg) -> list:
                 'build': buildName,
                 'type': type,
                 'floor': floor,
-                'name': name,
+                'name': buildName,
                 'floor2': floor2
             })
         else:

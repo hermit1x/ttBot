@@ -19,6 +19,9 @@ from plugins.wordcloud import wordcloud, record_for_wordcloud
 from plugins.history import monitor, peep, eavesdrop, essence, retract_monitor
 from plugins.identify import message_pre_handle, change_config, SU
 from plugins.friend_add import friend_add
+from plugins.maihc import maihc
+
+from plugins.maimai import b40
 
 bot = CQHttp()
 
@@ -59,6 +62,8 @@ async def handle_message(event: Event):
             wordcloud,
             openai,
             answer,
+            b40,
+            maihc, 
         ]
     ) # 糖糖问答是在别的‘糖糖xxx’都没有响应的时候才响应
 
