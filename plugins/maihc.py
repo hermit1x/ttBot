@@ -10,13 +10,16 @@ def update(opt, x):
     daynow = datetime.datetime.now().day
     if daynow != daytag:
         daytag = daynow
-        headcount = 0
+        headcount = 0  
+        print('[+] maihc归零，day' + str(daynow))
     if opt == '+':
         headcount = headcount + x
     if opt == '-':
         headcount = headcount - x
     if opt == '=':
         headcount = x
+    if opt == '?':
+        pass
 
 def inrange(x):
     if x < 0 or x > 40:
@@ -30,6 +33,7 @@ async def maihc(event, bot):
     msg = event.message
     query_cmd = ['机厅几人', '机厅几人？', '几人', '几？', '几']
     if msg in query_cmd:
+        update('?', 0)
         await bot.send(event, '机厅现有 ' + str(headcount) + ' 人。')
         if headcount == 0:
             await bot.send(event, '零卡陷阱生效中')
