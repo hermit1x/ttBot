@@ -3,37 +3,58 @@ import datetime
 headcount = 0
 daytag = datetime.datetime.now().day
 
-print('[+] 机厅人数初始化成功')
+print('[+] 机厅初始化成功')
 
-def update(opt, x):
-    global daytag, headcount
+async def maihc(event, bot):
+    global headcount, daytag
+    if id_func(event, 'maihc') == False:
+        return False
+    # 预先分拣指令，看看是不是maihc的指令，顺便分拣一下值
+    is_maihc_cmd = False
+    opt = ''
+    x = 0
+    
+    msg = event.message
+    query_cmd = ['机厅几人', '机厅几人？', '几人', '几？', '几']
+    if msg in query_cmd:
+        is_maihc_cmd = True
+        opt = '?'
+    elif msg[:2] == '机厅' and msg[-1] == '人' and msg[2:-1].strip().isdigit():
+        is_maihc_cmd = True
+        opt = '='
+        x = int(msg[2:-1].strip())
+    elif msg[0] == '+' and msg[1:].strip().isdigit():
+        is_maihc_cmd = True
+        opt = '+'
+        x = int(msg[1:].strip())
+    elif msg[0] == '-' and msg[1:].strip().isdigit():
+        is_maihc_cmd = True
+        opt = '-'
+        x = int(msg[1:].strip())
+    
+    # 不是maihc的指令
+    if is_maihc_cmd == False:
+        return False
+
+    # 闭店检查
+    h = datetime.datetime.now().hour
+    if h < 10 or h >= 22:
+        await bot.send(event, '闭店了闭店了，别惦记你那破maimai了')
+        return True
+    
+    # 日期更新检查
     daynow = datetime.datetime.now().day
     if daynow != daytag:
         daytag = daynow
         headcount = 0  
         print('[+] maihc归零，day' + str(daynow))
+    # 应用更新后的hc
     if opt == '+':
-        headcount = headcount + x
+        x = headcount + x
     if opt == '-':
-        headcount = headcount - x
-    if opt == '=':
-        headcount = x
+        x = headcount - x
+
     if opt == '?':
-        pass
-
-def inrange(x):
-    if x < 0 or x > 40:
-        return False
-    return True
-
-async def maihc(event, bot):
-    global headcount
-    if id_func(event, 'maihc') == False:
-        return False
-    msg = event.message
-    query_cmd = ['机厅几人', '机厅几人？', '几人', '几？', '几']
-    if msg in query_cmd:
-        update('?', 0)
         await bot.send(event, '机厅现有 ' + str(headcount) + ' 人。')
         if headcount == 0:
             await bot.send(event, '零卡陷阱生效中')
@@ -43,32 +64,10 @@ async def maihc(event, bot):
             await bot.send(event, '我超 大逼队 快跑')
         return True
 
-    if msg[:2] == '机厅' and msg[-1] == '人' and msg[2:-1].strip().isdigit():
-        if inrange(int(msg[2:-1].strip())):
-            update('=', int(msg[2:-1].strip()))
-            await bot.send(event, '记着了！机厅现有 ' + str(headcount) + ' 人。')
-        else:
-            await bot.send(event, '不许玩bot，傻卵')
+    if x < 0 or x > 20:
+        await bot.send(event, '不许玩bot，傻卵')
         return True
     
-    if msg[-1] == '卡' or msg[-1] == '人':
-        msg = msg[:-1]
-    
-    if msg[0] == '+' and msg[1:].strip().isdigit():
-        if inrange(headcount + int(msg[1:].strip())):
-            update('+', int(msg[1:].strip()))
-            await bot.send(event, '记着了！机厅现有 ' + str(headcount) + ' 人。')
-        else:
-            await bot.send(event, '不许玩bot，傻卵')
-        return True
-
-    if msg[0] == '-' and msg[1:].strip().isdigit():
-        if inrange(headcount - int(msg[1:].strip())):
-            update('-', int(msg[1:].strip()))
-            await bot.send(event, '记着了！机厅现有 ' + str(headcount) + ' 人。')
-        else:
-            await bot.send(event, '不许玩bot，傻卵')
-        return True
-
-    
-    return False
+    headcount = x
+    await bot.send(event, '记着了！机厅现有 ' + str(headcount) + ' 人。')
+    return True
