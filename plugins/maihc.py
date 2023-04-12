@@ -38,7 +38,7 @@ async def maihc(event, bot):
 
     # 闭店检查
     h = datetime.datetime.now().hour
-    if h < 10 or h >= 22:
+    if h < 9 or h >= 22:
         await bot.send(event, '闭店了闭店了，别惦记你那破maimai了')
         return True
     
