@@ -57,7 +57,7 @@ async def maihc(event, bot):
     if opt == '?':
         await bot.send(event, '机厅现有 ' + str(headcount) + ' 人。')
         if headcount == 0:
-            await bot.send(event, '零卡陷阱生效中')
+            await bot.send(event, '警钟长鸣')
         if headcount == 1:
             await bot.send(event, '我超 有人吧唧 快来')
         if headcount >= 6:

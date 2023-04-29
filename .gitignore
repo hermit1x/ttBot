@@ -8,3 +8,4 @@ data/wordcloud/*.txt
 plugins/__pycache__
 plugins/openai.py
 data/configs/black_list.json
+src/mai_static
