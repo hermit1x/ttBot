@@ -95,8 +95,8 @@ class DrawBest(object):
         self.playerRating = playerRating
         self.musicRating = musicRating
         self.rankRating = self.playerRating - self.musicRating
-        self.pic_dir = 'src/mai_static/mai/pic/'
-        self.cover_dir = 'src/mai_static/mai/cover/'
+        self.pic_dir = 'src/static/mai/pic/'
+        self.cover_dir = 'src/static/mai/cover/'
         self.img = Image.open(self.pic_dir + 'UI_TTR_BG_Base_Plus.png').convert('RGBA')
         self.ROWS_IMG = [2]
         for i in range(6):
@@ -199,7 +199,7 @@ class DrawBest(object):
         rankPic = 'D C B BB BBB A AA AAA S Sp SS SSp SSS SSSp'.split(' ')
         comboPic = ' FC FCp AP APp'.split(' ')
         imgDraw = ImageDraw.Draw(img)
-        titleFontName = 'src/mai_static/adobe_simhei.otf'
+        titleFontName = 'src/static/adobe_simhei.otf'
         for num in range(0, len(sdBest)):
             i = num // 5
             j = num % 5
@@ -230,9 +230,9 @@ class DrawBest(object):
                 comboImg = Image.open(self.pic_dir + f'UI_MSS_MBase_Icon_{comboPic[chartInfo.comboId]}_S.png').convert('RGBA')
                 comboImg = self._resizePic(comboImg, 0.45)
                 temp.paste(comboImg, (119, 27), comboImg.split()[3])
-            font = ImageFont.truetype('src/mai_static/adobe_simhei.otf', 12, encoding='utf-8')
+            font = ImageFont.truetype('src/static/adobe_simhei.otf', 12, encoding='utf-8')
             tempDraw.text((8, 44), f'Base: {chartInfo.ds} -> {chartInfo.ra}', 'white', font)
-            font = ImageFont.truetype('src/mai_static/adobe_simhei.otf', 18, encoding='utf-8')
+            font = ImageFont.truetype('src/static/adobe_simhei.otf', 18, encoding='utf-8')
             tempDraw.text((8, 60), f'#{num + 1}', 'white', font)
 
             recBase = Image.new('RGBA', (itemW, itemH), 'black')
@@ -278,9 +278,9 @@ class DrawBest(object):
                     'RGBA')
                 comboImg = self._resizePic(comboImg, 0.45)
                 temp.paste(comboImg, (119, 27), comboImg.split()[3])
-            font = ImageFont.truetype('src/mai_static/adobe_simhei.otf', 12, encoding='utf-8')
+            font = ImageFont.truetype('src/static/adobe_simhei.otf', 12, encoding='utf-8')
             tempDraw.text((8, 44), f'Base: {chartInfo.ds} -> {chartInfo.ra}', 'white', font)
-            font = ImageFont.truetype('src/mai_static/adobe_simhei.otf', 18, encoding='utf-8')
+            font = ImageFont.truetype('src/static/adobe_simhei.otf', 18, encoding='utf-8')
             tempDraw.text((8, 60), f'#{num + 1}', 'white', font)
 
             recBase = Image.new('RGBA', (itemW, itemH), 'black')
@@ -309,7 +309,7 @@ class DrawBest(object):
         namePlateImg = Image.open(self.pic_dir + 'UI_TST_PlateMask.png').convert('RGBA')
         namePlateImg = namePlateImg.resize((285, 40))
         namePlateDraw = ImageDraw.Draw(namePlateImg)
-        font1 = ImageFont.truetype('src/mai_static/msyh.ttc', 28, encoding='unic')
+        font1 = ImageFont.truetype('src/static/msyh.ttc', 28, encoding='unic')
         namePlateDraw.text((12, 4), ' '.join(list(self.userName)), 'black', font1)
         nameDxImg = Image.open(self.pic_dir + 'UI_CMN_Name_DX.png').convert('RGBA')
         nameDxImg = self._resizePic(nameDxImg, 0.9)
@@ -318,7 +318,7 @@ class DrawBest(object):
 
         shougouImg = Image.open(self.pic_dir + 'UI_CMN_Shougou_Rainbow.png').convert('RGBA')
         shougouDraw = ImageDraw.Draw(shougouImg)
-        font2 = ImageFont.truetype('src/mai_static/adobe_simhei.otf', 14, encoding='utf-8')
+        font2 = ImageFont.truetype('src/static/adobe_simhei.otf', 14, encoding='utf-8')
         playCountInfo = f'底分: {self.musicRating} + 段位分: {self.rankRating}'
         shougouImgW, shougouImgH = shougouImg.size
         playCountInfoW, playCountInfoH = shougouDraw.textsize(playCountInfo, font2)

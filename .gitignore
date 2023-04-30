@@ -2,10 +2,11 @@ __pycache__
 data/configs/SU.json
 data/configs/group_enabled.json
 data/configs/groups
+data/configs/private_help.png
 data/todo
 data/room/tmp.png
 data/wordcloud/*.txt
 plugins/__pycache__
 plugins/openai.py
 data/configs/black_list.json
-src/mai_static
+src/static

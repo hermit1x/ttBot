@@ -21,7 +21,7 @@ from plugins.identify import message_pre_handle, change_config, SU
 from plugins.friend_add import friend_add
 from plugins.maihc import maihc
 
-from plugins.maimai import b40
+from plugins.maimai import b40, b50
 
 bot = CQHttp()
 
@@ -63,6 +63,7 @@ async def handle_message(event: Event):
             openai,
             answer,
             b40,
+            b50,
             maihc, 
         ]
     ) # 糖糖问答是在别的‘糖糖xxx’都没有响应的时候才响应
