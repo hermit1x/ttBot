@@ -26,7 +26,7 @@ async def b40(event, bot):
 async def b50(event, bot):
     if event.message[:3] != 'b50':
         return False
-    if not id_func(event, 'b40'):
+    if not id_func(event, 'b50'):
         return True
     print('[ ] 触发b50')
     username = event.message[3:].strip()
@@ -34,6 +34,7 @@ async def b50(event, bot):
         payload = {'qq': str(event.user_id), 'b50': True}
     else:
         payload = {'username': username, 'b50': True}
+    print('[ ] b50 payload:', payload)
     img, success = await generate50(payload)
     if success == 400:
         await bot.send(event, "未找到此玩家，请确保此玩家的用户名和查分器中的用户名相同。")

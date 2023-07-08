@@ -1,7 +1,19 @@
 from plugins.identify import id_func
-import datetime
+import datetime, json
+time_format = '%Y-%m-%d %H:%M:%S'
 headcount = 0
 daytag = datetime.datetime.now().day
+
+try:
+    with open("data/maihc.log", 'rb') as f:
+        f.seek(-48, 2) # 暂时默认是一位数的人数，基本上不会挂（？）
+        last = f.read().strip()
+        last = json.loads(last)
+        daytag = datetime.datetime.strptime(last['time'], time_format).day
+        headcount = last['headcount']
+except:
+    print('[x] 机厅初始化挂了，但是问题不大')
+    pass
 
 print('[+] 机厅初始化成功')
 
@@ -70,4 +82,11 @@ async def maihc(event, bot):
     
     headcount = x
     await bot.send(event, '记着了！机厅现有 ' + str(headcount) + ' 人。')
+    with open('data/maihc.log', 'a') as f:
+        f.write(json.dumps(
+            {
+                'time': datetime.datetime.now().strftime(time_format),
+                'headcount': headcount
+            }
+        ) + '\n')
     return True

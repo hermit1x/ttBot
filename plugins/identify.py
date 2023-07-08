@@ -183,6 +183,7 @@ def update_func_for_groups(gid = 0):
             continue
         
         # 先删除func_list里没有的过期功能
+        poplist = []
         for func in config[gid]['func']:
             if not func in func_list['group']:
                 poplist.append(func)

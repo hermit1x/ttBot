@@ -62,7 +62,6 @@ async def handle_message(event: Event):
             wordcloud,
             openai,
             answer,
-            b40,
             b50,
             maihc, 
         ]

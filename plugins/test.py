@@ -1,6 +1,7 @@
 # coding:utf-8
 
 from plugins.identify import id_func
+from plugins.maimai import b50
 async def test(event, bot):
     if event.message == 'test' or event.message == '糖糖在吗':
         if id_func(event, 'test') == False:

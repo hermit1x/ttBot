@@ -10,3 +10,4 @@ plugins/__pycache__
 plugins/openai.py
 data/configs/black_list.json
 src/static
+data/maihc.log

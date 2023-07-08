@@ -5,7 +5,7 @@ from typing import Optional, Dict, List, Tuple
 
 import aiohttp
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
-from plugins.maimai.maimaidx_music import total_list, get_cover_len4_id
+from plugins.maimai.maimaidx_music import total_list
 
 
 scoreRank = 'D C B BB BBB A AA AAA S S+ SS SS+ SSS SSS+'.split(' ')
@@ -207,8 +207,10 @@ class DrawBest(object):
             i = num // 7
             j = num % 7
             chartInfo = sdBest[num]
-            pngPath = self.cover_dir + f'{get_cover_len4_id(chartInfo.idNum)}.png'
+            # pngPath = self.cover_dir + f'{get_cover_len4_id(chartInfo.idNum)}.png'
+            pngPath = self.cover_dir + f'{chartInfo.idNum}.png'
             if not os.path.exists(pngPath):
+                print('[x] b50 cover not found:', pngPath)
                 pngPath = self.cover_dir + '1000.png'
             temp = Image.open(pngPath).convert('RGB')
             temp = self._resizePic(temp, itemW / temp.size[0])
@@ -254,8 +256,10 @@ class DrawBest(object):
             i = num // 3
             j = num % 3
             chartInfo = dxBest[num]
-            pngPath = self.cover_dir + f'{get_cover_len4_id(chartInfo.idNum)}.png'
+            # pngPath = self.cover_dir + f'{get_cover_len4_id(chartInfo.idNum)}.png'
+            pngPath = self.cover_dir + f'{chartInfo.idNum}.png'
             if not os.path.exists(pngPath):
+                print('[x] b50 cover not found:', pngPath)
                 pngPath = self.cover_dir + '1000.png'
             temp = Image.open(pngPath).convert('RGB')
             temp = self._resizePic(temp, itemW / temp.size[0])
