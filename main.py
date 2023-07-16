@@ -21,7 +21,7 @@ from plugins.identify import message_pre_handle, change_config, SU
 from plugins.friend_add import friend_add
 from plugins.maihc import maihc
 
-from plugins.maimai import b40, b50
+from plugins.maimai import b50
 
 bot = CQHttp()
 

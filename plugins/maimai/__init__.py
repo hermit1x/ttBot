@@ -1,5 +1,4 @@
 from plugins.identify import id_func
-from plugins.maimai.maimai_best_40 import generate
 from plugins.maimai.maimai_best_50 import generate50
 from plugins.maimai.image import image_to_base64
 async def b40(event, bot):
