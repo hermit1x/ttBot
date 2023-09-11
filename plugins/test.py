@@ -8,5 +8,8 @@ async def test(event, bot):
             await bot.send(event, 'qwq，此功能未启用')
         if id_func(event, 'test') == True:
             await bot.send(event, '糖糖活着！')
+            # event.message = 'b50'
+            # event.user_id = 123
+            # await b50(event, bot)
         return True
     return False

@@ -4,6 +4,7 @@ data/configs/group_enabled.json
 data/configs/groups
 data/configs/private_help.png
 data/todo
+data/maiWaterFall.png
 data/room/tmp.png
 data/wordcloud/*.txt
 plugins/__pycache__
