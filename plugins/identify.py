@@ -45,14 +45,14 @@ def init():
         func_list = json.load(f); f.close()
     except FileNotFoundError:
         f = open(dir_path + 'func_list.json', 'w', encoding = 'utf-8')
-        json.dump(func_list, f); f.close()
+        json.dump(func_list, f, indent=4, ensure_ascii=True); f.close()
     
     try:
         f = open(dir_path + 'group_enabled.json', 'r', encoding = 'utf-8')
         group_enabled = json.load(f); f.close()
     except FileNotFoundError:
         f = open(dir_path + 'group_enabled.json', 'w', encoding = 'utf-8')
-        json.dump(group_enabled, f); f.close()
+        json.dump(group_enabled, f, indent=4); f.close()
 
     try:
         f = open(dir_path + 'black_list.json', 'r', encoding = 'utf-8')
@@ -66,7 +66,7 @@ def init():
         SU = json.load(f); f.close()
     except FileNotFoundError:
         f = open(dir_path + 'SU.json', 'w', encoding = 'utf-8')
-        json.dump(SU, f); f.close()
+        json.dump(SU, f, indent=4); f.close()
 
     # 初始化config的私聊
     for func in func_list['private']:
@@ -104,13 +104,13 @@ init()
 def write_json():
     global func_list, group_enabled, config, black_list, SU, dir_path
     with open(dir_path + 'func_list.json', 'w', encoding = 'utf-8') as f:
-        json.dump(func_list, f)
+        json.dump(func_list, f, indent=4)
     f = open(dir_path + 'group_enabled.json', 'w', encoding = 'utf-8')
-    json.dump(group_enabled, f); f.close()
+    json.dump(group_enabled, f, indent=4); f.close()
     f = open(dir_path + 'black_list.json', 'w', encoding = 'utf-8')
-    json.dump(black_list, f); f.close()
+    json.dump(black_list, f, indent=4); f.close()
     f = open(dir_path + 'SU.json', 'w', encoding = 'utf-8')
-    json.dump(SU, f); f.close()
+    json.dump(SU, f, indent=4); f.close()
     if os.path.exists(dir_path + 'private_help.png'):
         os.remove(dir_path + 'private_help.png')
 

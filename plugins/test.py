@@ -9,7 +9,7 @@ async def test(event, bot):
         if id_func(event, 'test') == True:
             await bot.send(event, '糖糖活着！')
             # event.message = 'b50'
-            # event.user_id = 123
+            # event.user_id = 2511848359
             # await b50(event, bot)
         return True
     return False
